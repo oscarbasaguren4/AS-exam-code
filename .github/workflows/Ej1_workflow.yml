@@ -1,0 +1,28 @@
+name: Ej1-workflow
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  trab:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar codigo
+        uses: actions/checkout@v4
+      - name: Action Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Ejecucion comando nmp i
+        run: npm i
+      - name: Ejecucion comando nmp test
+        run: npm test
+      - name: Construir la imagen
+        uses: cloudposse/github-action-docker-compose-test-run@main
+        with:
+          file: docker-compose.yml
+          service: webapp
+          command: test.js
+
+    
